@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: xau-signal
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: python -m gunicorn app:app --bind 0.0.0.0:$PORT --workers 1 --threads 4 --timeout 30
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8
+      - key: APP_SECRET
+        generateValue: true
+      - key: COOKIE_SECURE
+        value: "1"
+      - key: MARKET_CACHE_SECONDS
+        value: "120"
+      - key: DATABASE_URL
+        sync: false
