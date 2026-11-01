@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b0e0d">
+  <meta name="description" content="XAU Signal — a clear, rule-based workspace for the gold market.">
+  <title>XAU Signal — Gold market intelligence</title>
+  <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/static/styles.css">
+  <script defer src="/static/app.js"></script>
+</head>
+<body>
+  <svg class="icon-sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-signal" viewBox="0 0 24 24"><path d="M3 17l5-5 4 3 7-8"/><path d="M15 7h4v4"/></symbol>
+    <symbol id="i-book" viewBox="0 0 24 24"><path d="M12 6.5c-2-1.8-5-2.2-8-1.5v13c3-.7 6-.3 8 1.5 2-1.8 5-2.2 8-1.5V5c-3-.7-6-.3-8 1.5z"/><path d="M12 6.5v13"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.9 9.9 1.4 1.4m0-12.72-1.4 1.42m-9.9 9.9-1.42 1.4"/><circle cx="12" cy="12" r="4"/></symbol>
+    <symbol id="i-arrow-right" viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"/></symbol>
+    <symbol id="i-arrow-up-right" viewBox="0 0 24 24"><path d="M5 19 19 5M8 5h11v11"/></symbol>
+    <symbol id="i-refresh" viewBox="0 0 24 24"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.7 9a7 7 0 0 1 12.1-2.3L20 12M4 12l2.2 5.3A7 7 0 0 0 18.3 15"/></symbol>
+    <symbol id="i-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4L19 6"/></symbol>
+    <symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 11v5m0-8h.01"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 7v-3"/></symbol>
+    <symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4m4-4 4-4-4-4m4 4H9"/></symbol>
+  </svg>
+
+  <div class="app-shell">
+    <aside class="sidebar" aria-label="Main navigation">
+      <a class="brand" href="#overview" aria-label="XAU Signal home">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 38 38"><path d="M19 3.7 32.5 11v15.5L19 34.2 5.5 26.5V11L19 3.7Z"/><path d="m11 23 5-8 3 4 3-4 5 8M14 26h10"/></svg></span>
+        <span class="brand-type"><strong>XAU<span> SIGNAL</span></strong><small>GOLD INTELLIGENCE</small></span>
+      </a>
+      <div class="side-label">WORKSPACE</div>
+      <nav class="side-nav">
+        <a class="nav-link active" href="#overview" data-nav><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span><span class="nav-active-mark"></span></a>
+        <a class="nav-link" href="#signal-panel" data-nav><svg class="icon"><use href="#i-signal"/></svg><span>Signal analysis</span></a>
+        <a class="nav-link" href="#strategy" data-nav><svg class="icon"><use href="#i-book"/></svg><span>Strategy</span></a>
+        <button class="nav-link" type="button" data-open-settings><svg class="icon"><use href="#i-settings"/></svg><span>Settings</span></button>
+      </nav>
+
+      <div class="sidebar-bottom">
+        <div class="side-connection">
+          <div class="connection-icon"><svg class="icon"><use href="#i-signal"/></svg></div>
+          <p class="side-card-label">YOUR DATA FEED</p>
+          <h3 id="sidebarSource">Demo market</h3>
+          <p id="sidebarSourceDetail">Explore with simulated data, or connect a provider.</p>
+          <button class="text-link side-link" type="button" data-open-settings>Connection details <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+        </div>
+        <button class="profile-button" id="profileButton" type="button">
+          <span class="avatar" id="avatar">G</span>
+          <span class="profile-copy"><strong id="profileName">Guest trader</strong><small id="profileSub">Explore the demo</small></span>
+          <svg class="icon profile-chevron"><use href="#i-chevron"/></svg>
+        </button>
+      </div>
+    </aside>
+
+    <main class="main-area">
+      <header class="topbar">
+        <div class="breadcrumb"><span class="mobile-brand">XAU <b>SIGNAL</b></span><span class="breadcrumb-text">WORKSPACE <span class="slash">/</span> <b>OVERVIEW</b></span></div>
+        <div class="topbar-right">
+          <span class="top-status" id="topStatus"><span class="status-dot"></span><span id="topStatusText">SIMULATED DATA</span></span>
+          <span class="topbar-separator"></span>
+          <span class="clock" id="utcClock">--:-- UTC</span>
+          <button class="top-signin" id="topAccount" type="button">Sign in <svg class="icon"><use href="#i-arrow-up-right"/></svg></button>
+        </div>
+      </header>
+
+      <div class="content-wrap">
+        <section class="page-heading" id="overview">
+          <div>
+            <div class="eyebrow heading-eyebrow"><span></span> YOUR GOLD MARKET WORKSPACE</div>
+            <h1>Gold, in perspective<span class="gold-period">.</span></h1>
+            <p>Clarity for every market move, all in one place.</p>
+          </div>
+          <div class="heading-actions">
+            <button class="button button-outline" type="button" id="refreshButton"><svg class="icon"><use href="#i-refresh"/></svg><span>Refresh</span></button>
+            <button class="button button-gold" type="button" id="primaryAccount">Create account <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+          </div>
+        </section>
+
+        <div class="data-notice" id="dataNotice" role="status" aria-live="polite">
+          <span class="notice-icon"><svg class="icon"><use href="#i-info"/></svg></span>
+          <div><strong id="noticeTitle">You’re viewing a demo market</strong><span id="noticeText">Prices and signals are simulated, not live market data.</span></div>
+          <button type="button" class="notice-link" data-open-settings>Connection details <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+        </div>
+
+        <section class="market-overview" aria-labelledby="marketTitle">
+          <div class="asset-identity">
+            <span class="gold-coin" aria-hidden="true"><span>Au</span></span>
+            <div><div class="asset-kicker">PRECIOUS METALS <span class="asset-kicker-sep">/</span> SPOT GOLD</div><h2 id="marketTitle">XAU<span>/</span>USD</h2><p>Gold Spot <span>·</span> U.S. Dollar</p></div>
+          </div>
+          <div class="asset-price">
+            <div class="asset-price-top"><span id="priceLabel">LAST CLOSED PRICE</span> <span class="unit">USD / OZ</span></div>
+            <div class="price-line"><span class="dollar">$</span><strong id="currentPrice">—</strong><span id="priceChange" class="price-change">—</span></div>
+            <p id="priceComparison">Compared with previous 1m candle</p>
+          </div>
+          <div class="asset-divider"></div>
+          <div class="asset-asof"><span>LAST CANDLE CLOSED</span><strong id="lastClosed">—</strong><small>Time shown in UTC</small></div>
+        </section>
+
+        <section class="metrics-grid" aria-label="Market indicators">
+          <article class="metric-card metric-signal">
+            <div class="metric-top"><span>CURRENT SIGNAL</span><svg class="metric-icon icon"><use href="#i-signal"/></svg></div>
+            <div class="metric-value-row"><strong id="metricSignal">—</strong><span class="signal-mini" id="metricSignalTag">RULE-BASED</span></div>
+            <p id="metricSignalSub">Based on the last closed candle</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>TREND <span class="metric-muted">/ EMA 9 &amp; 21</span></span><svg class="metric-icon icon"><use href="#i-arrow-up-right"/></svg></div>
+            <div class="metric-value-row"><strong id="metricTrend">—</strong><span class="metric-indicator" id="trendIndicator"></span></div>
+            <p id="metricTrendSub">Fast &amp; slow moving averages</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>MOMENTUM <span class="metric-muted">/ RSI 14</span></span><svg class="metric-icon icon"><use href="#i-signal"/></svg></div>
+            <div class="metric-value-row"><strong id="metricRsi">—</strong><span class="metric-indicator" id="rsiIndicator"></span></div>
+            <p id="metricRsiSub">Wilder's RSI</p>
+          </article>
+          <article class="metric-card">
+            <div class="metric-top"><span>VOLATILITY <span class="metric-muted">/ ATR 14</span></span><svg class="metric-icon icon"><use href="#i-grid"/></svg></div>
+            <div class="metric-value-row"><strong id="metricAtr">—</strong><span class="metric-unit">USD</span></div>
+            <p>Average range per candle</p>
+          </article>
+        </section>
+
+        <div class="dashboard-grid">
+          <section class="panel chart-panel" aria-labelledby="chartTitle">
+            <div class="panel-header chart-header">
+              <div><div class="eyebrow panel-eyebrow">THE PRICE ACTION <span class="tiny-dash"></span> <span id="chartSource">SIMULATED</span></div><h3 id="chartTitle">XAU/USD chart</h3><p id="chartSubtitle">Closed candles · USD per troy ounce</p></div>
+              <div class="timeframes" role="group" aria-label="Select chart timeframe">
+                <button type="button" data-timeframe="1m" class="selected" aria-pressed="true">1m</button>
+                <button type="button" data-timeframe="5m" aria-pressed="false">5m</button>
+                <button type="button" data-timeframe="15m" aria-pressed="false">15m</button>
+                <button type="button" data-timeframe="1h" aria-pressed="false">1h</button>
+                <button type="button" data-timeframe="4h" aria-pressed="false">4h</button>
+              </div>
+            </div>
+            <div class="chart-legend"><span><i class="legend-square"></i>Candles</span><span><i class="legend-line fast"></i>EMA 9</span><span><i class="legend-line slow"></i>EMA 21</span><span class="chart-utc">UTC</span></div>
+            <div id="chartContainer" class="chart-container" aria-label="Gold price candlestick chart" aria-live="polite"><div class="chart-placeholder" id="chartPlaceholder">Loading price chart…</div><div class="chart-tooltip" id="chartTooltip" hidden></div></div>
+            <div class="chart-bottom"><span><span class="tiny-status"></span><span id="chartBottomText">Demo candles · not market prices</span><span id="providerAttribution" hidden> · Data provided by <a href="https://twelvedata.com/" target="_blank" rel="noopener">Twelve Data</a></span></span><span id="chartTimeframe">1 MIN TIMEFRAME</span></div>
+          </section>
+
+          <section class="panel signal-panel" id="signal-panel" aria-labelledby="signalTitle">
+            <div class="panel-header signal-header"><div><div class="eyebrow panel-eyebrow">THE CURRENT READ</div><h3 id="signalTitle">Signal analysis</h3></div><span class="analysis-mark"><svg class="icon"><use href="#i-signal"/></svg></span></div>
+            <div class="signal-focus" id="signalFocus">
+              <div class="signal-focus-top"><span class="signal-caption">RULE-BASED SIGNAL</span><span class="signal-badge wait" id="signalBadge"><span></span> WAIT</span></div>
+              <div class="signal-main"><span class="signal-symbol wait" id="signalSymbol">↗</span><div><h4 id="signalHeadline">Reading the market</h4><p id="signalReason">Calculating the latest closed candle.</p></div></div>
+            </div>
+            <div class="signal-conditions-head"><span>INDICATOR BREAKDOWN</span><span id="analysisInterval">1m</span></div>
+            <div class="condition-row"><span class="condition-icon">01</span><span class="condition-copy"><strong id="trendLabel">5m trend filter</strong><small id="trendDescription">5m EMA 9 versus EMA 21</small></span><span class="condition-result" id="conditionTrend">—</span></div>
+            <div class="condition-row"><span class="condition-icon">02</span><span class="condition-copy"><strong>Momentum</strong><small>Relative strength index</small></span><span class="condition-result" id="conditionRsi">—</span></div>
+            <div class="condition-row"><span class="condition-icon">03</span><span class="condition-copy"><strong>Price reference</strong><small>Last closed candle</small></span><span class="condition-result" id="conditionPrice">—</span></div>
+            <div class="recent-scan" id="recentScan">
+              <div class="recent-scan-head"><span>RECENT RULE MATCHES</span><span>LAST 5 CLOSED 1M BARS</span></div>
+              <div id="recentSignals" class="recent-signals">Scanning closed candles…</div>
+              <p>Historical matches, not alerts or executed trades.</p>
+            </div>
+            <a class="strategy-link" href="#strategy">Understand the signal rules <svg class="icon"><use href="#i-arrow-right"/></svg></a>
+          </section>
+        </div>
+
+        <section class="strategy-section" id="strategy" aria-labelledby="strategyTitle">
+          <div class="strategy-heading"><div><div class="eyebrow panel-eyebrow">NO BLACK BOX</div><h3 id="strategyTitle">An experimental scalp setup<span class="gold-period">.</span></h3><p>A 5-minute trend filter with a 1-minute pullback—not a prediction.</p></div><span class="strategy-pill"><svg class="icon"><use href="#i-clock"/></svg> CLOSED-CANDLE ANALYSIS</span></div>
+          <div class="rule-grid">
+            <article><span class="rule-number">01 <span></span> 5M BIAS</span><h4>Follow the trend</h4><p>BUY requires 5m EMA 9 above EMA 21; SELL requires it below. Only complete 5m bars are used.</p></article>
+            <article><span class="rule-number">02 <span></span> 1M TRIGGER</span><h4>Wait for a reclaim</h4><p>The closed 1m price must cross back above EMA 9 for BUY, or below it for SELL. The 1m EMAs must align with the 5m trend.</p></article>
+            <article><span class="rule-number">03 <span></span> CONFIRMATION</span><h4>Check the RSI</h4><p>1m RSI 14 must be 52–68 for BUY or 32–48 for SELL. Otherwise, the read is WAIT.</p></article>
+          </div>
+          <p class="strategy-note"><svg class="icon"><use href="#i-info"/></svg> At most one decision per closed 1m bar: five opportunities in five minutes, often fewer or none. Cached polling can delay or miss timely entries. Stale or incomplete data forces WAIT.</p>
+          <p class="strategy-note"><svg class="icon"><use href="#i-info"/></svg> Other chart timeframes use a different, simple EMA/RSI alignment rule (BUY: RSI 55–70; SELL: RSI 30–45). No backtest, stop-loss, profit target or performance guarantee is included.</p>
+        </section>
+
+        <footer class="footer"><p><strong>Risk notice</strong> &nbsp;Signals are for information only, are not financial advice, and can be wrong. No trades are placed automatically.</p><div><span>© XAU SIGNAL</span><span>BUILT FOR A CLEARER VIEW</span></div></footer>
+      </div>
+    </main>
+  </div>
+
+  <nav class="mobile-nav" aria-label="Mobile navigation"><a href="#overview"><svg class="icon"><use href="#i-grid"/></svg><span>Overview</span></a><a href="#signal-panel"><svg class="icon"><use href="#i-signal"/></svg><span>Signal</span></a><a href="#strategy"><svg class="icon"><use href="#i-book"/></svg><span>Strategy</span></a><button type="button" data-open-settings><svg class="icon"><use href="#i-settings"/></svg><span>Settings</span></button></nav>
+
+  <dialog id="authDialog" class="app-dialog" aria-labelledby="authTitle">
+    <div class="dialog-inner auth-inner">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+      <div class="dialog-brand"><span class="mini-brand-mark">✦</span> XAU <b>SIGNAL</b></div>
+      <div class="dialog-eyebrow">YOUR GOLD MARKET WORKSPACE</div>
+      <h2 id="authTitle">Make the market<br><em>make more sense.</em></h2>
+      <p class="dialog-intro" id="authIntro">Create an account to access your personal signal dashboard.</p>
+      <form id="authForm" novalidate>
+        <label id="nameField">Full name<input id="nameInput" name="name" type="text" autocomplete="name" placeholder="Your name" maxlength="60"></label>
+        <label>Email address<input id="emailInput" name="email" type="email" autocomplete="email" placeholder="you@example.com" maxlength="254" required></label>
+        <label>Password<input id="passwordInput" name="password" type="password" autocomplete="new-password" placeholder="At least 8 characters" minlength="8" maxlength="128" required></label>
+        <p class="form-error" id="authError" role="alert" hidden></p>
+        <button type="submit" class="button button-gold auth-submit" id="authSubmit">Create account <svg class="icon"><use href="#i-arrow-right"/></svg></button>
+      </form>
+      <div class="auth-switch"><span id="authSwitchText">Already have an account?</span> <button type="button" id="switchAuth">Sign in</button></div>
+      <div class="auth-foot"><svg class="icon"><use href="#i-lock"/></svg> Account access is protected by your password.</div>
+    </div>
+  </dialog>
+
+  <dialog id="settingsDialog" class="app-dialog settings-dialog" aria-labelledby="settingsTitle">
+    <div class="dialog-inner">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close"><svg class="icon"><use href="#i-close"/></svg></button>
+      <div class="dialog-eyebrow">WORKSPACE SETTINGS</div>
+      <h2 id="settingsTitle">Your connection<span class="gold-period">.</span></h2>
+      <p class="dialog-intro">The market feed is configured on the server, not in your browser. Provider data is polled, not streamed.</p>
+      <div class="settings-account"><span class="avatar" id="settingsAvatar">G</span><span><strong id="settingsName">Guest trader</strong><small id="settingsEmail">You’re exploring the public demo.</small></span><button type="button" id="settingsAccountAction">Sign in</button></div>
+      <div class="provider-box"><div class="provider-top"><span class="provider-icon">T</span><span><strong>Twelve Data</strong><small>XAU/USD time series</small></span><span class="provider-status" id="providerStatus">NOT CONNECTED</span></div><p id="providerDescription">The dashboard currently uses simulated prices. Add an API key on the server to request provider data.</p></div>
+      <div class="setup-steps"><p><span>01</span> Create a Twelve Data account and verify that your plan includes XAU/USD time-series access.</p><p><span>02</span> Set <code>TWELVE_DATA_API_KEY</code> in the server environment, then restart the app.</p><p><span>03</span> Sign in to view provider candles. The public preview always remains simulated.</p></div>
+      <a class="provider-docs" href="https://twelvedata.com/docs/market-data/time-series" target="_blank" rel="noopener noreferrer">View provider documentation <svg class="icon"><use href="#i-arrow-up-right"/></svg></a>
+      <p class="settings-note">Never paste an API key into the browser or share it in chat. Data access, latency and licensing depend on your plan. This preview uses one key; multi-key failover is disabled pending provider permission.</p>
+    </div>
+  </dialog>
+</body>
+</html>
